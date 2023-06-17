@@ -45,6 +45,7 @@ class pendu {
   }
 
   search(lettre) {
+    lettre = lettre.toLowerCase();
     this.character.push(lettre);
     let s = this.character.length > 1 ? "s" : "";
     essais.textContent = `lettre${s} essayée${s} : ${this.character.join(" ")}`;
@@ -96,8 +97,8 @@ class pendu {
     }
     essais.textContent = "";
     fault.textContent = "";
-    parties.textContent = `${win} ${win.length > 1 ? "victoires" : "victoire"} 
-      / ${play} ${play.length > 1 ? "parties" : "partie"}`;
+    parties.textContent = `${win} ${win > 1 ? "victoires" : "victoire"} 
+      / ${play} ${play > 1 ? "parties" : "partie"}`;
   }
 }
 
