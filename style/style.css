@@ -1,0 +1,113 @@
+body {
+  margin: 1rem;
+  background: #8acdea;
+}
+
+h1 {
+  text-align: center;
+  font-size: 6rem;
+}
+
+input {
+  min-width: 20vw;
+  height: 2.5rem;
+  padding-inline-start: 1rem;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  margin: 0.5rem;
+}
+
+button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  height: 2.5rem;
+  font-size: 1rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  color: #f18f01;
+  background-color: #006e90;
+}
+
+.jeu {
+  text-align: center;
+  margin: 3rem 1rem 1rem;
+}
+
+#reponse,
+#search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search {
+  flex-direction: column;
+}
+
+#reponse p {
+  font-size: 4rem;
+  margin: 0.5rem 0.5rem;
+  color: #f18f01;
+}
+
+#newGame {
+  position: absolute;
+  top: 3rem;
+}
+
+#texts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ac3931;
+  font-size: 1.75rem;
+}
+
+#parties {
+  font-size: 2rem;
+  margin-top: 1.75rem;
+}
+
+@media screen and (max-width: 850px) {
+  h1 {
+    font-size: 4.5rem;
+  }
+
+  #newGame {
+    top: 6.5rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  #newGame {
+    top: 5.5rem;
+  }
+
+  input,
+  button,
+  #texts,
+  #parties {
+    font-size: 0.75rem;
+  }
+
+  #reponse p {
+    font-size: 2rem;
+  }
+
+  button {
+    line-height: 1;
+    height: 1.5rem;
+    padding-inline-start: 0.75rem;
+    padding-inline-end: 0.75rem;
+  }
+}

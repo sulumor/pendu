@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jeu du pendu</title>
+    <link rel="stylesheet" href="style/reset.css" />
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <h1>Jeu du pendu</h1>
+    <div class="jeu">
+      <div id="reponse"></div>
+      <div id="search">
+        <input
+          type="text"
+          name="test"
+          id="test"
+          placeholder="Notifier 1 lettre"
+          required
+          maxlength="1"
+        />
+        <button type="button" id="testButton">Soumettre</button>
+      </div>
+    </div>
+    <div id="texts">
+      <p id="fault"></p>
+      <p id="essais"></p>
+    </div>
+    <div></div>
+    <p id="parties"></p>
+    <button type="button" id="newGame">Nouvelle partie</button>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
