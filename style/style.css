@@ -74,6 +74,16 @@ button {
   margin-top: 1.75rem;
 }
 
+#myCanvas {
+  height: 200px;
+  width: 200px;
+}
+
+.canvas {
+  text-align: center;
+  color: #ac3931;
+}
+
 @media screen and (max-width: 850px) {
   h1 {
     font-size: 4.5rem;
@@ -90,14 +100,24 @@ button {
   }
 
   #newGame {
-    top: 5.5rem;
+    top: 6rem;
+  }
+
+  #parties {
+    position: absolute;
+    top: 4.5rem;
+    right: 2rem;
+  }
+
+  .jeu {
+    margin-top: 4.5rem;
   }
 
   input,
   button,
   #texts,
   #parties {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 
   #reponse p {
