@@ -49,7 +49,7 @@ class pendu {
 
   search(lettre) {
     lettre = lettre.toLowerCase();
-    if (this.character.includes(lettre)) this.miss();
+
     this.character.push(lettre);
     let s = this.character.length > 1 ? "s" : "";
     essais.textContent = `lettre${s} essayée${s} : ${this.character.join(" ")}`;
