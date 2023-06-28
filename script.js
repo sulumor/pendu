@@ -40,7 +40,7 @@ class pendu {
 
   search(lettre) {
     error.textContent = "";
-
+    lettre = lettre.toLowerCase();
     this.letters.push(lettre);
     essais.textContent = `lettre${this.s(this.letters)} essayée${this.s(
       this.letters
@@ -198,7 +198,7 @@ class pendu {
 let partie = new pendu();
 
 submit.addEventListener("click", () => {
-  partie.search(test.value.toLowerCase());
+  partie.search(test.value);
   test.value = "";
 });
 
