@@ -8,12 +8,14 @@ const parties = document.getElementById("parties");
 //Buttons
 const submit = document.getElementById("testButton");
 const newGame = document.getElementById("newGame");
+const addLetter = document.getElementById("addLetter");
 
 //Input
 const test = document.getElementById("test");
 
 //Erreurs
 const fault = document.getElementById("fault");
+const error = document.getElementById("error");
 
 //Canvas
 const canvas = document.getElementById("myCanvas");
@@ -25,13 +27,10 @@ let play = 0;
 
 class pendu {
   constructor() {
-    this.word = MOTS[Math.floor(Math.random() * MOTS.length)]
-      .toLowerCase()
-      .replace(/ç/, "c")
-      .replaceAll(/é|è/g, "e");
-    this.play = this.init();
+    this.word = MOTS[Math.round(Math.random() * MOTS.length)].toLowerCase();
+    this.play = new Array(this.size()).fill("_");
     this.fault = 10;
-    this.character = [];
+    this.letters = [];
     this.show();
   }
 
@@ -39,57 +38,52 @@ class pendu {
     return this.word.length;
   }
 
-  init() {
-    let arr = new Array(this.size());
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = "_";
-    }
-    return arr;
-  }
-
   search(lettre) {
-    lettre = lettre.toLowerCase();
+    error.textContent = "";
 
-    this.character.push(lettre);
-    let s = this.character.length > 1 ? "s" : "";
-    essais.textContent = `lettre${s} essayée${s} : ${this.character.join(" ")}`;
-    if (!this.word.includes(lettre)) {
+    this.letters.push(lettre);
+    essais.textContent = `lettre${this.s(this.letters)} essayée${this.s(
+      this.letters
+    )} : ${this.letters.join(" ")}`;
+
+    if (lettre === "e") lettre = "eéè";
+    if (lettre === "c") lettre = "cç";
+
+    if (!new RegExp(`[${lettre}]`, "g").test(this.word)) {
       this.miss();
       return;
     }
-    for (let i = 0; i < this.size(); i++) {
-      if (this.word[i] === lettre) this.play.splice(i, 1, lettre);
+
+    for (let j = 0; j < lettre.length; j++) {
+      for (let i = 0; i < this.size(); i++) {
+        if (this.word[i] === lettre[j]) this.play.splice(i, 1, lettre[j]);
+      }
     }
+
     this.show();
-    this.win();
   }
 
   win() {
     if (this.word === this.play.join("")) {
       win++;
-      play++;
+      this.disableBtns();
       alert("Vous avez gagné");
-      submit.setAttribute("disabled", "true");
-      test.setAttribute("disabled", "true");
-      parties.textContent = `${win} ${win > 1 ? "victoires" : "victoire"} 
-      / ${play} ${play > 1 ? "parties" : "partie"}`;
+    }
+  }
+
+  lose() {
+    if (this.fault === 0) {
+      this.disableBtns();
+      alert(`Vous avez perdu. Le mot recherché était ${this.word}`);
     }
   }
 
   miss() {
     this.fault--;
-    fault.textContent =
-      this.fault === 1 ? "reste 1 essai" : `reste ${this.fault} essais`;
+    fault.textContent = `reste ${this.fault} essai${this.s(this.fault)}`;
     this.draw(this.fault);
 
-    if (this.fault === 0) {
-      play++;
-      alert(`Vous avez perdu. Le mot recherché était ${this.word}`);
-      submit.setAttribute("disabled", "true");
-      test.setAttribute("disabled", "true");
-      parties.textContent = `${win} ${win > 1 ? "victoires" : "victoire"} 
-      / ${play} ${play > 1 ? "parties" : "partie"}`;
-    }
+    if (this.word !== this.play.join("")) this.lose();
   }
 
   show() {
@@ -103,17 +97,57 @@ class pendu {
       p.textContent = this.play[i];
       reponse.append(p);
     }
+
+    this.win();
+    this.lose();
   }
 
+  //? VOIR POUR FACTORISER
+
   reset() {
+    if (this.word !== this.play.join("") && this.fault > 0) this.addPlay();
     while (reponse.firstChild) {
       reponse.removeChild(reponse.firstChild);
     }
     ctx.clearRect(0, 0, 400, 200);
     essais.textContent = "";
     fault.textContent = "";
+    error.textContent = "";
     submit.removeAttribute("disabled");
     test.removeAttribute("disabled");
+    addLetter.removeAttribute("disabled");
+  }
+
+  addPlay() {
+    play++;
+    parties.textContent = `${win} victoire${this.s(win)} 
+      / ${play} partie${this.s(play)}`;
+  }
+
+  s(arg) {
+    if (Array.isArray(arg)) return arg.length > 1 ? "s" : "";
+    return arg > 1 ? "s" : "";
+  }
+
+  addLetter() {
+    if (this.fault < 2)
+      return (error.textContent = `Vous n'avez pas assez d'essais pour utiliser un indice`);
+    for (let i = 0; i < this.size(); i++) {
+      if (this.play[i] === "_") {
+        this.search(this.word[i]);
+        for (let j = 0; j < 2; j++) {
+          this.miss();
+        }
+        return;
+      }
+    }
+  }
+
+  disableBtns() {
+    this.addPlay();
+    submit.setAttribute("disabled", "true");
+    test.setAttribute("disabled", "true");
+    addLetter.setAttribute("disabled", "true");
   }
 
   draw(nb) {
@@ -161,21 +195,25 @@ class pendu {
   }
 }
 
-let essai = new pendu();
+let partie = new pendu();
 
 submit.addEventListener("click", () => {
-  essai.search(test.value);
+  partie.search(test.value.toLowerCase());
   test.value = "";
 });
 
 test.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    essai.search(test.value);
+    partie.search(test.value);
     test.value = "";
   }
 });
 
 newGame.addEventListener("click", () => {
-  essai.reset();
-  essai = new pendu();
+  partie.reset();
+  partie = new pendu();
+});
+
+addLetter.addEventListener("click", () => {
+  partie.addLetter();
 });
