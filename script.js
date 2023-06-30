@@ -59,6 +59,7 @@ function reboot() {
   essais.textContent = "";
   fault.textContent = "";
   error.textContent = "";
+  document.getElementById("indiceP").textContent = `Il vous reste 10 essais`;
   categorie.removeAttribute("style");
   submit.removeAttribute("disabled");
   test.removeAttribute("disabled");
