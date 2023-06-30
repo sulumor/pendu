@@ -17,6 +17,9 @@ const indiceBtn = document.getElementById("indiceBtn");
 //Input
 const test = document.getElementById("test");
 
+//Image
+const img = document.getElementById("img");
+
 //Erreurs
 const fault = document.getElementById("fault");
 const error = document.getElementById("error");
@@ -100,8 +103,14 @@ addCategorie.addEventListener("click", () => {
 indiceBtn.addEventListener("click", () => {
   if (indices.style.display === "block") {
     indices.removeAttribute("style");
+    img.removeAttribute("style");
+    indiceBtn.removeAttribute("style");
+    document.querySelector(".croix").removeAttribute("style");
     error.textContent = "";
   } else {
     indices.style.display = "block";
+    indiceBtn.style.backgroundColor = "red";
+    document.querySelector(".croix").style.display = "block";
+    img.style.display = "none";
   }
 });

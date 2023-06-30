@@ -123,6 +123,12 @@ button {
   right: 3.5rem;
 }
 
+.croix {
+  display: none;
+  font-size: 1.5rem;
+  color: black;
+}
+
 @media screen and (max-width: 850px) {
   h1 {
     font-size: 4.5rem;
