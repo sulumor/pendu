@@ -8,6 +8,11 @@ h1 {
   font-size: 6rem;
 }
 
+h2 {
+  text-align: center;
+  font-size: 4rem;
+}
+
 input {
   min-width: 20vw;
   height: 2.5rem;
@@ -36,7 +41,7 @@ button {
 
 .jeu {
   text-align: center;
-  margin: 3rem 1rem 1rem;
+  margin: 2rem 1rem 0;
 }
 
 #reponse,
@@ -56,6 +61,32 @@ button {
   color: #f18f01;
 }
 
+#indices {
+  display: none;
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  height: 80vh;
+  width: 100vw;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+
+#indices > div {
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#addLetter,
+#addCategorie,
+#error {
+  margin-top: 1rem;
+}
+
 #newGame {
   position: absolute;
   top: 3rem;
@@ -67,15 +98,11 @@ button {
   justify-content: space-between;
   color: #ac3931;
   font-size: 1.75rem;
-}
-
-#parties {
-  font-size: 2rem;
-  margin-top: 1.75rem;
+  margin-top: 1rem;
 }
 
 #myCanvas {
-  height: 200px;
+  height: 190px;
   width: 200px;
 }
 
@@ -84,19 +111,49 @@ button {
   color: #ac3931;
 }
 
+#categorie {
+  display: none;
+}
+
+#indiceBtn {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 2.5rem;
+  right: 3.5rem;
+}
+
 @media screen and (max-width: 850px) {
   h1 {
     font-size: 4.5rem;
   }
 
+  h2 {
+    font-size: 3rem;
+  }
+
   #newGame {
     top: 6.5rem;
+  }
+
+  #indiceBtn {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  #indices {
+    height: 85vh;
+    top: 14.5vh;
   }
 }
 
 @media screen and (max-width: 450px) {
   h1 {
     font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
   }
 
   #newGame {
@@ -109,7 +166,8 @@ button {
     right: 2rem;
   }
 
-  .jeu {
+  .jeu,
+  #indices {
     margin-top: 4.5rem;
   }
 
@@ -127,8 +185,13 @@ button {
   button {
     line-height: 1;
     height: 1.5rem;
-    padding: 5px;
+    padding: 15px;
     padding-inline-start: 0.75rem;
     padding-inline-end: 0.75rem;
+  }
+
+  #indices {
+    height: 85vh;
+    top: 2.7vh;
   }
 }

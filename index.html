@@ -13,6 +13,7 @@
   <body>
     <h1>Jeu du pendu</h1>
     <div class="jeu">
+      <div id="categorie"></div>
       <div id="reponse"></div>
       <div id="search">
         <input
@@ -22,22 +23,40 @@
           placeholder="Notifier 1 lettre"
           required
           maxlength="1"
+          autofocus
         />
         <button type="button" id="testButton">Soumettre</button>
       </div>
-      <div id="indices">
-        Contre 2 essais, vous pouvez dévoiler une lettre :
-        <button type="button" id="addLetter">Lettre suivante</button>
-        <p id="error"></p>
+      <div id="texts">
+        <p id="essais"></p>
+        <p id="parties"></p>
       </div>
-    </div>
-    <div id="texts">
-      <p id="essais"></p>
-      <p id="parties"></p>
+      <button type="button" id="indiceBtn">
+        <img src="./src/img/indice-mobile.png" alt="loupe avec interrogation" />
+      </button>
     </div>
     <div class="canvas">
       <canvas id="myCanvas"></canvas>
       <p id="fault"></p>
+    </div>
+    <div id="indices">
+      <h2>INDICES</h2>
+      <div>
+        <p id="indiceP">Il vous reste 10 essais</p>
+        <div class="cate">
+          Contre 1 essai, vous pouvez :
+          <button type="button" id="addCategorie">
+            Dévoiler la catégorie du mot
+          </button>
+        </div>
+        <div class="lett">
+          Contre 2 essais, vous pouvez :
+          <button type="button" id="addLetter">
+            Dévoiler la lettre suivante
+          </button>
+          <p id="error"></p>
+        </div>
+      </div>
     </div>
     <button type="button" id="newGame">Nouvelle partie</button>
     <script type="module" src="script.js"></script>
