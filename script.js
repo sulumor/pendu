@@ -67,6 +67,21 @@ function reboot() {
   indiceBtn.removeAttribute("disabled");
 }
 
+function toogleBtn() {
+  if (indices.style.display === "block") {
+    indices.removeAttribute("style");
+    img.removeAttribute("style");
+    indiceBtn.removeAttribute("style");
+    document.querySelector(".croix").removeAttribute("style");
+    error.textContent = "";
+  } else {
+    indices.style.display = "block";
+    indiceBtn.style.backgroundColor = "red";
+    document.querySelector(".croix").style.display = "block";
+    img.style.display = "none";
+  }
+}
+
 submit.addEventListener("click", () => {
   partie.search(test.value);
   test.value = "";
@@ -90,7 +105,7 @@ newGame.addEventListener("click", async () => {
 addLetter.addEventListener("click", () => {
   partie.addLetter();
   if (error.textContent === "") {
-    indices.removeAttribute("style");
+    toogleBtn();
   }
 });
 
@@ -98,20 +113,9 @@ addCategorie.addEventListener("click", () => {
   error.textContent = "";
   categorie.style.display = "block";
   partie.miss();
-  indices.removeAttribute("style");
+  toogleBtn();
 });
 
 indiceBtn.addEventListener("click", () => {
-  if (indices.style.display === "block") {
-    indices.removeAttribute("style");
-    img.removeAttribute("style");
-    indiceBtn.removeAttribute("style");
-    document.querySelector(".croix").removeAttribute("style");
-    error.textContent = "";
-  } else {
-    indices.style.display = "block";
-    indiceBtn.style.backgroundColor = "red";
-    document.querySelector(".croix").style.display = "block";
-    img.style.display = "none";
-  }
+  toogleBtn();
 });
