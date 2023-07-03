@@ -26,8 +26,25 @@ export class pendu {
       this.letters
     )} essayée${s(this.letters)} : ${this.letters.join(" ")}`;
 
-    if (lettre === "e") lettre = "eéèê";
-    if (lettre === "c") lettre = "cç";
+    switch (lettre) {
+      case "e":
+        lettre = "eéèê";
+        break;
+      case "c":
+        lettre = "cç";
+        break;
+      case "u":
+        lettre = "uû";
+        break;
+      case "i":
+        lettre = "iîï";
+        break;
+      case "o":
+        lettre = "oô";
+        break;
+      default:
+        break;
+    }
 
     if (!new RegExp(`[${lettre}]`, "g").test(this.word)) {
       this.miss();

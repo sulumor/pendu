@@ -1,4 +1,3 @@
-import { MOTS } from "./modules/mots.js";
 import { pendu } from "./modules/pendu.js";
 
 //Espace texte
@@ -24,20 +23,34 @@ const img = document.getElementById("img");
 const fault = document.getElementById("fault");
 const error = document.getElementById("error");
 
-let mot = await newWord();
-let partie = new pendu(mot);
+//Initialisation
+let r = 0;
+let mots = await newWord();
+let partie = mot();
+
+function mot() {
+  categorie.textContent = mots[r].categorie;
+  return new pendu(mots[r].name.toLowerCase());
+}
 
 async function newWord() {
-  return fetch("https://trouve-mot.fr/api/random/1").then((response) => {
-    if (response.status === 200) {
-      return response.json().then((data) => {
-        categorie.innerText = data[0].categorie;
-        return data[0].name;
-      });
-    }
-    document.querySelector(".cate").style.display = "none";
-    return MOTS[Math.round(Math.random() * MOTS.length)].toLowerCase();
+  const response = await fetch("https://trouve-mot.fr/api/random/10", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
   });
+  if (response.ok === true) {
+    return response.json().then((datas) => {
+      return datas;
+    });
+  }
+  const { MOTS } = await import("./modules/mots.js");
+  let elements = [];
+  for (let i = 0; i < 10; i++) {
+    elements[i] = MOTS[Math.round(Math.random() * MOTS.length)];
+  }
+  return elements;
 }
 
 export function s(arg) {
@@ -61,6 +74,7 @@ function reboot() {
   error.textContent = "";
   document.getElementById("indiceP").textContent = `Il vous reste 10 essais`;
   categorie.removeAttribute("style");
+  document.querySelector(".cate").removeAttribute("style");
   submit.removeAttribute("disabled");
   test.removeAttribute("disabled");
   addLetter.removeAttribute("disabled");
@@ -98,8 +112,12 @@ test.addEventListener("keypress", (e) => {
 newGame.addEventListener("click", async () => {
   partie.reset();
   reboot();
-  mot = await newWord();
-  partie = new pendu(mot);
+  r++;
+  partie = mot();
+  if (r === 9) {
+    mots = await newWord();
+    r = -1;
+  }
 });
 
 addLetter.addEventListener("click", () => {
@@ -114,6 +132,7 @@ addCategorie.addEventListener("click", () => {
   categorie.style.display = "block";
   partie.miss();
   toogleBtn();
+  document.querySelector(".cate").style.display = "none";
 });
 
 indiceBtn.addEventListener("click", () => {
