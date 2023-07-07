@@ -5,15 +5,15 @@ const reponse = document.getElementById("reponse");
 const essais = document.getElementById("essais");
 const categorie = document.getElementById("categorie");
 const indices = document.getElementById("indices");
+const accents = document.getElementById("accents");
 
 //Buttons
-const submit = document.getElementById("testButton");
 const newGame = document.getElementById("newGame");
 const addLetter = document.getElementById("addLetter");
 const addCategorie = document.getElementById("addCategorie");
 const indiceBtn = document.getElementById("indiceBtn");
-const testWord = document.getElementById("testWord");
 const cate = document.querySelector(".cate");
+const switchLabel = document.getElementById("switch");
 
 //Input
 const test = document.getElementById("test");
@@ -27,7 +27,6 @@ const fault = document.getElementById("fault");
 const error = document.getElementById("error");
 
 //Initialisation
-let toggleWord = false;
 let r = 0;
 let mots = await newWord();
 let partie = mot();
@@ -63,7 +62,7 @@ export function s(arg) {
 }
 
 export function disableBtns() {
-  [submit, test, indiceBtn, testWord].forEach((btn) => {
+  [test, indiceBtn].forEach((btn) => {
     btn.setAttribute("disabled", "true");
   });
 }
@@ -86,7 +85,7 @@ function reboot() {
   }
   removeText([essais, fault, error]);
   removeAtt([categorie, cate], "style");
-  removeAtt([submit, test, indiceBtn, testWord], "disabled");
+  removeAtt([test, indiceBtn], "disabled");
   document.getElementById("indiceP").textContent = `Il vous reste 10 essais`;
 }
 
@@ -102,37 +101,26 @@ function toogleBtn() {
   }
 }
 
-function toggleWordBtn() {
-  if (!toggleWord) {
-    testWord.textContent = "Essayer 1 lettre";
+function switchWord() {
+  if (switchLabel.checked) {
     test.placeholder = "Notifier le mot voulu";
     test.setAttribute("maxlength", "20");
-    toggleWord = true;
-    test.focus();
+    accents.style.display = "block";
   } else {
-    testWord.textContent = "Essayer un mot";
-    test.placeholder = "Notifier 1 lettre";
+    test.placeholder = "Notifier une lettre";
     test.setAttribute("maxlength", "1");
-    toggleWord = false;
-    test.focus();
+    accents.removeAttribute("style");
   }
 }
 
-submit.addEventListener("click", () => {
-  partie.search(test.value);
-  test.value = "";
-  if (partie.fault < 2) indiceBtn.setAttribute("disabled", "true");
-});
-
 test.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    if (toggleWord) {
-      partie.tryWord(test.value.toLowerCase());
-      toggleWordBtn();
-    } else {
-      partie.search(test.value);
-    }
+    switchLabel.checked
+      ? partie.tryWord(test.value.toLowerCase())
+      : partie.search(test.value);
     test.value = "";
+    switchLabel.checked = false;
+    switchWord();
     if (partie.fault < 2) indiceBtn.setAttribute("disabled", "true");
   }
 });
@@ -167,8 +155,7 @@ indiceBtn.addEventListener("click", () => {
   toogleBtn();
 });
 
-testWord.addEventListener("click", () => {
-  toggleWordBtn();
+switchLabel.addEventListener("click", (e) => {
+  switchWord();
+  test.focus();
 });
-
-//voir lorsqu'il reste que 2 essais et faire indice lettre ok

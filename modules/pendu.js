@@ -21,10 +21,7 @@ export class pendu {
 
   search(lettre) {
     lettre = lettre.toLowerCase();
-    this.letters += lettre + " ";
-    document.getElementById("essais").textContent = `lettre${s(
-      this.letters
-    )} essayée${s(this.letters)} : ${this.letters}`;
+    this.addTryLetterOrWord(lettre);
 
     if (lettre === "e") lettre = "eéèê";
     if (lettre === "c") lettre = "cç";
@@ -50,6 +47,7 @@ export class pendu {
   tryWord(w) {
     if (this.word !== w) {
       this.miss(3);
+      this.addTryLetterOrWord(w);
       return this.winOrLose();
     }
     this.show();
@@ -105,6 +103,13 @@ export class pendu {
   reset() {
     if (!this.verification() && this.fault > 0) this.addPlay();
     this.canvas = new canvas();
+  }
+
+  addTryLetterOrWord(string) {
+    this.letters += string + " ";
+    document.getElementById("essais").textContent = `Essai${s(
+      this.letters
+    )} : ${this.letters}`;
   }
 
   addPlay() {

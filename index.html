@@ -20,14 +20,20 @@
           type="text"
           name="test"
           id="test"
-          placeholder="Notifier 1 lettre"
+          placeholder="Notifier une lettre"
           required
           maxlength="1"
           autofocus
         />
-        <div class="btn-container">
-          <button type="button" id="testButton">Soumettre</button>
-          <button type="button" id="testWord">Essayer un mot</button>
+        <div class="toggle">
+          <div>
+            <p>Lettre</p>
+            <input type="checkbox" id="switch" /><label for="switch"
+              >Toggle</label
+            >
+            <p>Mot</p>
+          </div>
+          <p id="accents">Ne pas oublier les accents !!</p>
         </div>
       </div>
       <div id="texts">
