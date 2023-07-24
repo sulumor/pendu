@@ -12,7 +12,9 @@
   </head>
   <body>
     <h1>Jeu du pendu</h1>
-    <div class="jeu">
+
+    <!-- JEU -->
+    <section class="jeu">
       <div id="categorie"></div>
       <div id="reponse"></div>
       <div id="search">
@@ -49,12 +51,14 @@
           id="img"
         />
       </button>
-    </div>
+    </section>
     <div class="canvas">
       <canvas id="myCanvas"></canvas>
       <p id="fault"></p>
     </div>
-    <div id="indices">
+
+    <!-- OVERLAY INDICES-->
+    <section id="indices">
       <h2>INDICES</h2>
       <div>
         <p id="indiceP">Il vous reste 10 essais</p>
@@ -72,7 +76,7 @@
           <p id="error"></p>
         </div>
       </div>
-    </div>
+    </section>
     <button type="button" id="newGame">Nouvelle partie</button>
     <script type="module" src="script.js"></script>
   </body>

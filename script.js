@@ -37,7 +37,7 @@ function mot() {
 }
 
 async function newWord() {
-  const response = await fetch("https://trouve-mot.fr/api/random/10", {
+  /*const response = await fetch("https://trouve-mot.fr/api/random/10", {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -47,7 +47,7 @@ async function newWord() {
     return response.json().then((datas) => {
       return datas;
     });
-  }
+  }*/
   const { MOTS } = await import("./modules/mots.js");
   let elements = [];
   for (let i = 0; i < 10; i++) {
@@ -111,6 +111,7 @@ function switchWord() {
     test.setAttribute("maxlength", "1");
     accents.removeAttribute("style");
   }
+  test.focus();
 }
 
 test.addEventListener("keypress", (e) => {
@@ -151,11 +152,6 @@ addCategorie.addEventListener("click", () => {
   cate.style.display = "none";
 });
 
-indiceBtn.addEventListener("click", () => {
-  toogleBtn();
-});
+indiceBtn.addEventListener("click", toogleBtn);
 
-switchLabel.addEventListener("click", (e) => {
-  switchWord();
-  test.focus();
-});
+switchLabel.addEventListener("click", switchWord);
