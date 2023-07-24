@@ -28,6 +28,7 @@ export class pendu {
     if (lettre === "u") lettre = "uù";
     if (lettre === "i") lettre = "iîï";
     if (lettre === "o") lettre = "oô";
+    if (lettre === "a") lettre = "aàâä";
 
     if (!new RegExp(`[${lettre}]`, "g").test(this.word)) {
       this.miss();
